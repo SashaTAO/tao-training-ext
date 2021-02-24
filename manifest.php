@@ -30,7 +30,7 @@ return [
     'label' => 'Training extension',
     'description' => 'Training extension',
     'license' => 'GPL-2.0',
-    'version' => '0.1.0',
+    'version' => '0.2.0',
     'author' => 'Open Assessment Technologies SA',
     'requires' => [
         'generis' => '>=13.14.1',
