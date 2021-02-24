@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE structures SYSTEM "../../tao/doc/structures.dtd">
+<structures>
+	<structure id="training" name="Training" level="6" group="main">
+		<description>Training TAO extension.</description>
+		<icon id="icon-test" src=""/>
+		<sections>
+			<section id="taoTrainingExt_main" name="Trainings" url="/taoTrainingExt/Training/index">
+				<trees>
+					<tree name="Trainings library"
+						  className="Training"
+						  dataUrl="/taoTrainingExt/Training/getOntologyData"
+						  rootNode="http://www.taotesting.com/ontologies/training.rdf#Training"
+						  selectClass="training-class-properties"
+						  selectInstance="training-properties"
+						  delete="training-delete"
+					/>
+				</trees>
+				<actions allowClassActions="true">
+					<action id="training-class-properties" name="Properties" url="/taoTrainingExt/Training/editClassLabel" group="content" context="class">
+						<icon id="icon-edit"/>
+					</action>
+					<action id="training-class-schema" name="Manage Schema" url="/tao/PropertiesAuthoring/index" group="content" context="class">
+						<icon id="icon-property-add"/>
+					</action>
+					<action id="training-class-new" name="New class" url="/taoTrainingExt/Training/addSubClass" context="resource" group="tree" binding="subClass">
+						<icon id="icon-folder-open"/>
+					</action>
+					<action id="training-new" name="New training" url="/taoTrainingExt/Training/addInstance" context="resource" group="tree" binding="instanciate">
+						<icon id="icon-item"/>
+					</action>
+					<action id="training-delete" name="Delete" url="/taoTrainingExt/Training/delete" context="resource" group="tree" binding="removeNode">
+						<icon id="icon-bin"/>
+					</action>
+					<action id="training-delete-all" name="Delete" url="/taoTrainingExt/Training/deleteAll" context="resource" multiple="true" group="tree" binding="removeNodes">
+						<icon id="icon-bin"/>
+					</action>
+					<action id="training-move" name="Move" url="/taoTrainingExt/Training/moveInstance" context="instance" group="none" binding="moveNode">
+						<icon id="icon-move-item"/>
+					</action>
+					<action id="training-move-to" name="Move To" url="/taoTrainingExt/Training/moveResource" context="resource" group="tree" binding="moveTo">
+						<icon id="icon-move-item"/>
+					</action>
+					<action id="training-move-all" name="Move To" url="/taoTrainingExt/Training/moveAll" context="resource" multiple="true" group="tree" binding="moveTo">
+						<icon id="icon-move-item"/>
+					</action>
+					<action id="training-properties" name="Edit training" url="/taoTrainingExt/Training/editInstance" context="instance" group="content">
+						<icon id="icon-item"/>
+					</action>
+				</actions>
+			</section>
+		</sections>
+	</structure>
+</structures>

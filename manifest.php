@@ -19,6 +19,9 @@
  * 
  */
 
+use oat\tao\model\accessControl\func\AccessRule;
+use oat\tao\model\user\TaoRoles;
+
 /**
  * Generated using taoDevTools 6.10.0
  */
@@ -33,10 +36,29 @@ return [
         'generis' => '>=13.14.1',
         'tao' => '>=46.14.4'
     ],
-    'acl' => [],
-    'install' => [],
+    'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#TrainingManagerRole',
+    'acl' => [
+        [
+            'grant', "http://www.tao.lu/Ontologies/generis.rdf#TrainingManagerRole", ['ext'=>'taoTrainingExt']
+        ],
+    ],
+    'routes' => [
+        '/taoTrainingExt' => 'oat\\taoTrainingExt\\controller',
+    ],
+    'install' => [
+        'rdf' => [
+            __DIR__ . '/install/ontology/training.rdf'
+        ]
+    ],
     'uninstall' => [],
-    'routes' => [],
-    'constants' => [],
-    'extra' => []
+    'constants' => [
+        # views directory
+        "DIR_VIEWS" => __DIR__ . DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR,
+
+        #BASE URL (usually the domain root)
+        'BASE_URL' => ROOT_URL.'taoCustomExtension/',
+    ],
+    'extra' => [
+        'structures' => __DIR__ . DIRECTORY_SEPARATOR.'controller'.DIRECTORY_SEPARATOR.'structures.xml',
+    ]
 ];
