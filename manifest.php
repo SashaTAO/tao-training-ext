@@ -20,7 +20,7 @@
  */
 
 use oat\tao\model\accessControl\func\AccessRule;
-use oat\tao\model\user\TaoRoles;
+use oat\taoTrainingExt\models\ontology\TrainingManagerRole;
 
 /**
  * Generated using taoDevTools 6.10.0
@@ -36,10 +36,10 @@ return [
         'generis' => '>=13.14.1',
         'tao' => '>=46.14.4'
     ],
-    'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#TrainingManagerRole',
+    'managementRole' => TrainingManagerRole::ROLE_URI,
     'acl' => [
         [
-            'grant', "http://www.tao.lu/Ontologies/generis.rdf#TrainingManagerRole", ['ext'=>'taoTrainingExt']
+            AccessRule::GRANT, TrainingManagerRole::ROLE_URI, ['ext'=>'taoTrainingExt']
         ],
     ],
     'routes' => [
@@ -47,7 +47,8 @@ return [
     ],
     'install' => [
         'rdf' => [
-            __DIR__ . '/install/ontology/training.rdf'
+            __DIR__ . '/install/ontology/training.rdf',
+            __DIR__ . '/install/ontology/trainingManagerRole.rdf'
         ]
     ],
     'uninstall' => [],
