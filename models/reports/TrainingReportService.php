@@ -33,6 +33,12 @@ class TrainingReportService extends ConfigurableService
 
     public const TABLE_NAME = 'training_reports';
 
+    public const ID_COLUMN = 'id';
+    public const DELIVERY_ID_COLUMN = 'delivery_id';
+    public const DELIVERY_EXECUTION_ID_COLUMN = 'delivery_execution_id';
+    public const REPORT_STATUS_COLUMN = 'report_status';
+    public const REPORT_BODY_COLUMN = 'report_body';
+
     /**
      * @var common_persistence_SqlPersistence
      */

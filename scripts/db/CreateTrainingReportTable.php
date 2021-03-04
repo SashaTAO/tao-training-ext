@@ -48,14 +48,32 @@ class CreateTrainingReportTable extends AbstractAction
 
             // Perform changes.
             $table = $schema->createTable(TrainingReportService::TABLE_NAME);
-            $table->addColumn('id',                     Types::INTEGER, ['autoincrement' => true]);
-            $table->addColumn('delivery_id',            Types::STRING,  ['length' => 255]);
-            $table->addColumn('delivery_execution_id',  Types::STRING,  ['length' => 255]);
-            $table->addColumn('report_status',          Types::STRING,  ['length' => 255]);
+            $table->addColumn(TrainingReportService::ID_COLUMN,
+                              Types::INTEGER,
+                              ['autoincrement' => true]
+            );
+            $table->addColumn(
+                TrainingReportService::DELIVERY_ID_COLUMN,
+                Types::STRING,
+                ['length' => 255]
+            );
+            $table->addColumn(
+                TrainingReportService::DELIVERY_EXECUTION_ID_COLUMN,
+                Types::STRING,
+                ['length' => 255]
+            );
+            $table->addColumn(
+                TrainingReportService::REPORT_STATUS_COLUMN,
+                Types::STRING,
+                ['length' => 255]
+            );
 
-            $table->setPrimaryKey(['id']);
-            $table->addUniqueIndex(['delivery_id', 'delivery_execution_id'], 'idx_delivery_id_delivery_execution_id');
-            $table->addIndex(['delivery_execution_id']);
+            $table->setPrimaryKey([TrainingReportService::ID_COLUMN]);
+            $table->addUniqueIndex(
+                [TrainingReportService::DELIVERY_ID_COLUMN, TrainingReportService::DELIVERY_EXECUTION_ID_COLUMN],
+                'idx_delivery_id_delivery_execution_id'
+            );
+            $table->addIndex([TrainingReportService::DELIVERY_EXECUTION_ID_COLUMN]);
 
             // Execute schema transformation.
             $persistence->getPlatForm()->migrateSchema($fromSchema, $schema);

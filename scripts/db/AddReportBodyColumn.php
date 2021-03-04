@@ -48,7 +48,7 @@ class AddReportBodyColumn extends AbstractAction
 
             // Perform changes.
             $table = $schema->getTable(TrainingReportService::TABLE_NAME);
-            $table->addColumn('report_body', Types::JSON);
+            $table->addColumn(TrainingReportService::REPORT_BODY_COLUMN, Types::JSON);
 
             // Execute schema transformation.
             $persistence->getPlatForm()->migrateSchema($fromSchema, $schema);
