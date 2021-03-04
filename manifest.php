@@ -22,6 +22,7 @@
 use oat\tao\model\accessControl\func\AccessRule;
 use oat\taoTrainingExt\models\ontology\TrainingManagerRole;
 use oat\taoTrainingExt\scripts\db\CreateTrainingReportTable;
+use oat\taoTrainingExt\scripts\install\RegisterDeliveryExecutionFinishedEventHandler;
 
 /**
  * Generated using taoDevTools 6.10.0
@@ -31,7 +32,7 @@ return [
     'label' => 'Training extension',
     'description' => 'Training extension',
     'license' => 'GPL-2.0',
-    'version' => '0.4.0',
+    'version' => '0.5.0',
     'author' => 'Open Assessment Technologies SA',
     'requires' => [
         'generis' => '>=13.14.1',
@@ -53,6 +54,7 @@ return [
         ],
         'php' => [
             CreateTrainingReportTable::class,
+            RegisterDeliveryExecutionFinishedEventHandler::class
         ]
     ],
     'uninstall' => [],

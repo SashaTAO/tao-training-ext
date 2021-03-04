@@ -66,4 +66,17 @@ class TrainingReportService extends ConfigurableService
 
         return $this->persistence;
     }
+
+    public function addNewReport(string $deliveryId, string $deliveryExecutionId, array $report): int
+    {
+        $data = [
+            self::DELIVERY_ID_COLUMN => $deliveryId,
+            self::DELIVERY_EXECUTION_ID_COLUMN => $deliveryExecutionId,
+            self::REPORT_BODY_COLUMN => json_encode($report),
+        ];
+        return $this->getPersistence()->insert(
+            self::TABLE_NAME,
+            $data
+        );
+    }
 }
