@@ -23,7 +23,9 @@ namespace oat\taoTrainingExt\models\reports;
 
 use common_persistence_SqlPersistence;
 use oat\generis\persistence\PersistenceManager;
+use oat\oatbox\event\EventManager;
 use oat\oatbox\service\ConfigurableService;
+use oat\taoTrainingExt\models\events\TrainingReportCreated;
 
 class TrainingReportService extends ConfigurableService
 {
@@ -75,9 +77,17 @@ class TrainingReportService extends ConfigurableService
             self::REPORT_STATUS_COLUMN => $report->getReportStatus(),
             self::REPORT_BODY_COLUMN => json_encode($report->getReportBody()),
         ];
-        return $this->getPersistence()->insert(
+        $result = $this->getPersistence()->insert(
             self::TABLE_NAME,
             $data
         );
+
+        if ($result === 1) {
+            $reportId = (int) $this->getPersistence()->lastInsertId();
+            $event = new TrainingReportCreated($reportId, $report);
+            $this->getServiceLocator()->get(EventManager::SERVICE_ID)->trigger($event);
+        }
+
+        return $result;
     }
 }

@@ -21,7 +21,9 @@ declare(strict_types=1);
 
 namespace oat\taoTrainingExt\models\reports;
 
-class TrainingReport
+use JsonSerializable;
+
+class TrainingReport implements JsonSerializable
 {
     const STATUS_CREATED = 'created';
     const STATUS_SENT = 'sent';
@@ -63,5 +65,14 @@ class TrainingReport
     public function setReportStatus(string $status): void
     {
         $this->reportStatus = $status;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'delivery_id' => $this->deliveryId,
+            'delivery_execution_id' => $this->deliveryExecutionId,
+            'report_body' => $this->reportBody
+        ];
     }
 }

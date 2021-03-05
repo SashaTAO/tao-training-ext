@@ -22,7 +22,9 @@
 use oat\tao\model\accessControl\func\AccessRule;
 use oat\taoTrainingExt\models\ontology\TrainingManagerRole;
 use oat\taoTrainingExt\scripts\db\CreateTrainingReportTable;
+use oat\taoTrainingExt\scripts\install\ConfigureReportCreatedWebhook;
 use oat\taoTrainingExt\scripts\install\RegisterDeliveryExecutionFinishedEventHandler;
+use oat\taoTrainingExt\scripts\install\RegisterReportCreatedEventForWebhook;
 
 /**
  * Generated using taoDevTools 6.10.0
@@ -54,7 +56,9 @@ return [
         ],
         'php' => [
             CreateTrainingReportTable::class,
-            RegisterDeliveryExecutionFinishedEventHandler::class
+            RegisterDeliveryExecutionFinishedEventHandler::class,
+            RegisterReportCreatedEventForWebhook::class,
+            ConfigureReportCreatedWebhook::class
         ]
     ],
     'uninstall' => [],
