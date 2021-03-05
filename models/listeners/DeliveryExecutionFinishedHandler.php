@@ -21,29 +21,28 @@ declare(strict_types=1);
 
 namespace oat\taoTrainingExt\models\listeners;
 
+use Exception;
 use oat\oatbox\service\ConfigurableService;
+use oat\tao\model\taskQueue\QueueDispatcherInterface;
 use oat\taoProctoring\model\event\DeliveryExecutionFinished;
-use oat\taoTrainingExt\models\reports\TrainingReportService;
+use oat\taoTrainingExt\models\tasks\DeliveryFinishedReport;
 
 class DeliveryExecutionFinishedHandler extends ConfigurableService
 {
     public function createTrainingReport(DeliveryExecutionFinished $event): void
     {
-        $deliveryExecurion = $event->getDeliveryExecution();
-        $delivery = $deliveryExecurion->getDelivery();
-        $dummyReport = [
-            'delivery' => $delivery->getLabel(),
-            'delivery_execution_id' => $deliveryExecurion->getIdentifier(),
-            'test_taker' => $deliveryExecurion->getUserIdentifier(),
-            'state' => $deliveryExecurion->getState()
-        ];
+        try {
+            /** @var QueueDispatcherInterface $queueDispatcher reference_id */
+            $queueDispatcher = $this->getServiceLocator()->get(QueueDispatcherInterface::SERVICE_ID);
 
-        /** @var TrainingReportService $reportService */
-        $reportService = $this->getServiceLocator()->get(TrainingReportService::SERVICE_ID);
-        $reportService->addNewReport(
-            $delivery->getUri(),
-            $deliveryExecurion->getIdentifier(),
-            $dummyReport
-        );
+            $taskTitle = "Report finished delivery execution to XXX";
+            $queueDispatcher->createTask(
+                new DeliveryFinishedReport(),
+                [$event->getDeliveryExecution()->getIdentifier()],
+                $taskTitle
+            );
+        } catch (Exception $e) {
+            $this->logError("Cannot create a task 'DeliveryFinishedReport'");
+        }
     }
 }
